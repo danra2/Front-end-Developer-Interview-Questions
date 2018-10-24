@@ -712,16 +712,62 @@ The best way to always create a new object is with following notation:
 const obj = {}
 Reason being that as the objects are mutable, one can easily alter it and add properties to it later on. While const ensures that the variable obj does not get re-declared to some other object accidentally later on in the code.
 
+[ref](https://medium.com/nodejs-tips/mutable-immutable-in-javascript-988cc5c1f9a3)
+
 * Explain the difference between synchronous and asynchronous functions.
 
 * What is event loop?
   * What is the difference between call stack and task queue?
 
+The event loop is a single-threaded loop that monitors the call stack and checks if there is any work to be done in the task queue. If the call stack is empty and there are callback functions in the task queue, a function is dequeued and pushed onto the call stack to be executed.
+
+Philip Robert's talk on the Event Loop
+
+[ref](https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md)
+
 * Explain the differences on the usage of `foo` between `function foo() {}` and `var foo = function() {}`
+
+The former is a function declaration while the latter is a function expression. The key difference is that function declarations have its body hoisted but the bodies of function expressions are not (they have the same hoisting behavior as variables).
+
+[ref](https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md)
 
 * What are the differences between variables created using `let`, `var` or `const`?
 
+Variables declared using the var keyword are scoped to the function in which they are created, or if created outside of any function, to the global object. var allows variables to be hoisted. 
+
+let and const are block scoped, meaning they are only accessible within the nearest set of curly braces (function, if-else block, or for-loop).
+
+
+[ref](https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md)
+
 * What are the differences between ES6 class and ES5 function constructors?
+
+inheitance is different
+
+```js
+// ES5 Function Constructor
+function Student(name, studentId) {
+  // Call constructor of superclass to initialize superclass-derived members.
+  Person.call(this, name);
+
+  // Initialize subclass's own members.
+  this.studentId = studentId;
+}
+
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
+
+// ES6 Class
+class Student extends Person {
+  constructor(name, studentId) {
+    super(name);
+    this.studentId = studentId;
+  }
+}
+```
+
+
+[ref](https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md)
 
 * Can you offer a use case for the new arrow `=>` function syntax? How does this new syntax differ from other functions?
 
@@ -729,7 +775,46 @@ Reason being that as the objects are mutable, one can easily alter it and add pr
 
 * What is the definition of a higher-order function?
 
+A higher-order function is any function that (1) takes one or more functions as arguments, which it uses to operate on some data, and/or (2) returns a function as a result. 
+
+
+[ref](https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md)
+
 * Can you give an example for destructuring an object or an array?
+
+Destructuring is an expression available in ES6 which enables a succinct and convenient way to extract values of Objects or Arrays and place them into distinct variables.
+
+Array destructuring
+
+```js
+// Variable assignment.
+const foo = ['one', 'two', 'three'];
+
+const [one, two, three] = foo;
+console.log(one); // "one"
+console.log(two); // "two"
+console.log(three); // "three"
+
+// Swapping variables
+let a = 1;
+let b = 3;
+
+[a, b] = [b, a];
+console.log(a); // 3
+console.log(b); // 1
+```
+
+Object destructuring
+```js
+// Variable assignment.
+const o = { p: 42, q: true };
+const { p, q } = o;
+
+console.log(p); // 42
+console.log(q); // true
+```
+
+[ref](https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md)
 
 * ES6 Template Literals offer a lot of flexibility in generating strings, can you give an example?
 
@@ -737,6 +822,33 @@ Reason being that as the objects are mutable, one can easily alter it and add pr
 
 * What are the benefits of using `spread syntax` and how is it different from `rest syntax`?
 
+ES6's spread syntax is very useful when coding in a functional paradigm as we can easily create copies of arrays or objects without resorting to Object.create, slice, or a library function. 
+
+ES6's rest syntax offers a shorthand for including an arbitrary number of arguments to be passed to a function. It is like an inverse of the spread syntax, taking data and stuffing it into an array rather than unpacking an array of data, and it works in function arguments, as well as in array and object destructuring assignments.
+
+```js
+function addFiveToABunchOfNumbers(...numbers) {
+  return numbers.map(x => x + 5);
+}
+```
+
+[ref](https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md)
+
 * How can you share code between files?
 
+This depends on the JavaScript environment.
+
+On the client (browser environment), as long as the variables/functions are declared in the global scope (window), all scripts can refer to them. Alternatively, adopt the Asynchronous Module Definition (AMD) via RequireJS for a more modular approach.
+
+On the server (Node.js), the common way has been to use CommonJS. Each file is treated as a module and it can export variables and functions by attaching them to the module.exports object.
+
+ES2015 defines a module syntax which aims to replace both AMD and CommonJS. This will eventually be supported in both browser and Node environments.
+
+
+[ref](https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md)
+
 * Why you might want to create static class members?
+
+Static class members (properties/methods) are not tied to a specific instance of a class and have the same value regardless of which instance is referring to it. Static properties are typically configuration variables and static methods are usually pure utility functions which do not depend on the state of the instance.
+
+[ref](https://github.com/yangshun/front-end-interview-handbook/blob/master/questions/javascript-questions.md)
