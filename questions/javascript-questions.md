@@ -574,6 +574,8 @@ Causes referenceError in strict mode.
 
 [ref](http://perfectionkills.com/onloadfunction-considered-harmful/)
 
+Alternative: The DOMContentLoaded event is fired when the initial HTML document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading. It is an incredibly common mistake to use load where DOMContentLoaded would be much more appropriate.
+
 * Explain what a single page app is and how to make one SEO-friendly.
 
 Traditionally, the browser receives HTML from the server and renders it. When the user navigates to another URL, a full-page refresh is required and the server sends fresh new HTML to the new page. This is called server-side rendering.
